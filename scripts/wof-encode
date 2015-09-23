@@ -1,0 +1,23 @@
+#!/usr/bin/env python
+# -*-python-*-
+
+import sys
+import os.path
+import logging
+import geojson
+import mapzen.whosonfirst.geojson
+
+if __name__ == '__main__':
+
+   e = mapzen.whosonfirst.geojson.encoder()
+
+   for path in sys.argv[1:]:
+
+      path = os.path.abspath(path)
+
+      fh = open(path, 'r')
+      f = geojson.load(fh)
+
+      e.encode_feature(f, sys.stdout)
+
+   sys.exit()
