@@ -11,7 +11,7 @@ This is the primary (and so far only) use for this package. Basically it exists 
 * Ensure that the `geometry` property of GeoJSON features are _not_ indented while everything else is
 * Optionally ensure that coordinates are trimmed to `n` decimal points
   by passing argument to the constructor (the default is `None` which
-  is to leave coordinates unchanged
+  is to leave coordinates unchanged)
 
 For example:
 
