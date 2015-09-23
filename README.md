@@ -153,6 +153,10 @@ Would yield:
 
 ## Caveat
 
-I wish we didn't have to this.
+I wish we didn't have to this. If there's a way to do this using the
+default ["override the JSONEncoder class"
+stuff](https://docs.python.org/2/library/json.html#encoders-and-decoders)
+in Python – without converting things in to strings – then I'd love to
+hear about it.
 
 ## See also
