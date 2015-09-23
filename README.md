@@ -14,9 +14,9 @@ This is primary (and so far only) use for this package. Basically it exists for 
 For example:
 
 ```
-import mapzen.whosonfirst.geojson
 import sys
 import geojson
+import mapzen.whosonfirst.geojson
 
 path = '/path/to/101/736/545/101736545.geojson'
 
