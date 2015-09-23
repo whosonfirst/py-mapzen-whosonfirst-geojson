@@ -8,8 +8,10 @@ Python tools for doing GeoJSON related things with Who's On First data
 
 This is the primary (and so far only) use for this package. Basically it exists for two purposes:
 
-* Ensure that coordinates are trimmed to (6) decimal points
-* Ensure that the `geometry` property of GeoJSON features are _not_ indented while everything else is
+* Ensure that the `geometry` property of GeoJSON features are _not_ indented while everything else i
+* Optionally ensure that coordinates are trimmed to `n` decimal points
+  by passing argument to the constructor (the default is `None` which
+  is to leave coordinates unchanged
 
 For example:
 
@@ -23,7 +25,7 @@ path = '/path/to/101/736/545/101736545.geojson'
 fh = open(path, 'r')
 f = geojson.load(fh)
 
-e = mapzen.whosonfirst.geojson.encoder()
+e = mapzen.whosonfirst.geojson.encoder(precision=None)
 e.encode_feature(f, sys.stdout)
 ```
 
