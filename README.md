@@ -6,7 +6,7 @@ Python tools for doing GeoJSON related things with Who's On First data
 
 ### mapzen.whosonfirst.geojson.encoder
 
-This is primary (and so far only) use for this package. Basically it exists for two purposes:
+This is the primary (and so far only) use for this package. Basically it exists for two purposes:
 
 * Ensure that coordinates are trimmed to (6) decimal points
 * Ensure that the `geometry` property of GeoJSON features are _not_ indented while everything else is
