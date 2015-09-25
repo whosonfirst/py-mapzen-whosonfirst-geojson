@@ -70,7 +70,9 @@ class encoder:
 
         fh.write("{\n")
 
-        for k, default in spec.items():
+        for k in ('id', 'type', 'properties', 'bbox', 'geometry'):
+
+            default = spec[k]
 
             fh.write(' ' * self.indent)
             fh.write('"%s": ' % k)
