@@ -60,19 +60,25 @@ class encoder:
 
     def encode_feature(self, feature, fh=sys.stdout):
 
+        spec = {
+            'id' : '',
+            'type': 'Feature',
+            'properties': {},
+            'bbox': [],
+            'geometry': {}
+        }
+
         fh.write("{\n")
 
-        keys = ('id', 'type', 'properties', 'bbox', 'geometry')
-
-        for k in keys:
+        for k, default in spec.items():
 
             fh.write(' ' * self.indent)
             fh.write('"%s": ' % k)
 
             if k in ('bbox', 'geometry'):
-                self._encode(feature[k], fh, None)
+                self._encode(feature.get(k, default), fh, None)
             else:
-                self._encode(feature[k], fh, self.indent * 2)
+                self._encode(feature.get(k, default), fh, self.indent * 2)
 
             if k != 'geometry':
                 fh.write(',')
