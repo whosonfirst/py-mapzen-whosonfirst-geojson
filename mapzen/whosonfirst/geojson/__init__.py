@@ -6,8 +6,12 @@ import json
 import logging
 import re
 
-float_pat = re.compile(r'^-?\d+(?:\.\d+)?(e-?\d+)?$')
-charfloat_pat = re.compile(r'^[\[,\,]-?\d+(?:\.\d+)?(e-?\d+)?$')
+# float_pat = re.compile(r'^-?\d+(?:\.\d+)?(e-?\d+)?$')
+# charfloat_pat = re.compile(r'^[\[,\,]-?\d+(?:\.\d+)?(e-?\d+)?$')
+
+float_pat = re.compile(r'^-?\d+\.\d+(e-?\d+)?$')
+charfloat_pat = re.compile(r'^[\[,\,]-?\d+\.\d+(e-?\d+)?$')
+scinot_pat = re.compile(r'^[\[,\,](-?\d+e-\d+?)$')
         
 class encoder:
 
@@ -83,19 +87,30 @@ class encoder:
             # I hate you, Python...
             # I really hate you0000000000000...
 
-            if charfloat_pat.match(token):
-                # in python 2.7, we see a character followed by a float literal
-
-                f = token[0] + fmt % float(token[1:])
-                f = f.strip('0')
+            if scinot_pat.match(token):
+                
+                f = fmt % float(token[1:])
+                # f = f.strip('0')
+                f = token[0] + f
 
                 fh.write(f)
 
+            elif charfloat_pat.match(token):
+                # in python 2.7, we see a character followed by a float literal
+
+                f = fmt % float(token[1:])
+                # f = f.strip('0')
+
+                f = token[0] + f
+
+                fh.write(f)
+
+            # in python 2.6, we see a simple float literal
+
             elif float_pat.match(token):
-                # in python 2.6, we see a simple float literal
 
                 f = fmt % float(token)
-                f = f.strip('0')
+                # f = f.strip('0')
 
                 fh.write(f)
             
