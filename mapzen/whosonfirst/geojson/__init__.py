@@ -6,8 +6,8 @@ import json
 import logging
 import re
 
-float_pat = re.compile(r'^-?\d+\.\d+(e-?\d+)?$')
-charfloat_pat = re.compile(r'^[\[,\,]-?\d+\.\d+(e-?\d+)?$')
+float_pat = re.compile(r'^-?\d+(?:\.\d+)?(e-?\d+)?$')
+charfloat_pat = re.compile(r'^[\[,\,]-?\d+(?:\.\d+)?(e-?\d+)?$')
         
 class encoder:
 
@@ -19,6 +19,22 @@ class encoder:
         if indent <= 0:
             indent = None
 
+        # Here are the rules:
+        #
+        # 1) Until further notice geometries may have up to but not exceeding
+        # (14) decimal points. This is probably serious overkill but it's also
+        # what Quattroshapes does so we're just going to leave it as is for
+        # now.
+        #
+        # 2) Everything else is truncated to (6) decimal points
+        #
+        # 3) Trailing zeros are removed from all coordinates
+        #
+        # Mostly this is to account for Python deciding to use scientific notation
+        # on a whim which is super annoying. To that end we are enforcing some standards
+        # which raises the larger question of why we let anyone specify a precision
+        # at all. But that is tomorrow's problem... 
+
         precision = kwargs.get('precision', None)
 
         if precision != None:
@@ -28,16 +44,18 @@ class encoder:
             if precision <= 0:
                 precision = None
 
-        fmt = None
-
-        if precision != None:
-            fmt = "%." + str(precision) + "f"
+            if precesion > 14:
+                raise Exception, "WHY U SO PRECISE?"
 
         self.indent = indent
         self.precision = precision
-        self.fmt = fmt
 
-    def _encode(self, data, fh, indent):
+        # See comments about precision above. We reset fmt below in '_encode_feature'
+        # if that is necessary. (20151202/thisisaaronland)
+
+        self.fmt = "%.14f"
+
+    def _encode(self, data, fh, indent, precision=None):
 
         # From TileStache's vectiles GeoJSON encoder thingy
         # (20130317/straup)
@@ -45,15 +63,41 @@ class encoder:
         encoder = json.JSONEncoder(separators=(',', ':'), indent=indent, sort_keys=True)
         encoded = encoder.iterencode(data)
 
+        # Remember - see the comments about precision above
+        # in __init__ 
+
+        fmt = self.fmt
+
+        if precision != None:
+
+            precision = int(precision)
+
+            if precision <= 0:
+                precision = None
+
+        if precision != None:
+            fmt = "%." + str(precision) + "f"
+        
         for token in encoded:
 
-            if charfloat_pat.match(token) and self.precision:
-                # in python 2.7, we see a character followed by a float literal
-                fh.write(token[0] + self.fmt % float(token[1:]))
+            # I hate you, Python...
+            # I really hate you0000000000000...
 
-            elif float_pat.match(token) and self.precision:
+            if charfloat_pat.match(token):
+                # in python 2.7, we see a character followed by a float literal
+
+                f = token[0] + fmt % float(token[1:])
+                f = f.strip('0')
+
+                fh.write(f)
+
+            elif float_pat.match(token):
                 # in python 2.6, we see a simple float literal
-                fh.write(self.fmt % float(token))
+
+                f = fmt % float(token)
+                f = f.strip('0')
+
+                fh.write(f)
             
             else:
                 fh.write(token)
@@ -77,10 +121,24 @@ class encoder:
             fh.write(' ' * self.indent)
             fh.write('"%s": ' % k)
 
-            if k in ('bbox', 'geometry'):
+            # See comments in __init__ and note the way we are explicitly
+            # not passing a precision (20151202/thisisaaronland)
+
+            if k in ('geometry'):
                 self._encode(feature.get(k, default), fh, None)
             else:
-                self._encode(feature.get(k, default), fh, self.indent * 2)
+
+                # See comments in __init__ and note the way we are explicitly
+                # reseting precision unless the user says otherwise... which 
+                # is not necessarily what we want to do in the first place
+                # (20151202/thisisaaronland)
+
+                precision = self.precision
+
+                if precision == None:
+                    precision = 6
+
+                self._encode(feature.get(k, default), fh, self.indent * 2, precision)
 
             if k != 'geometry':
                 fh.write(',')
