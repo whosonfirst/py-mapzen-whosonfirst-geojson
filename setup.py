@@ -8,7 +8,7 @@ desc = open("README.md").read(),
 setup(
     name='mapzen.whosonfirst.geojson',
     namespace_packages=['mapzen', 'mapzen.whosonfirst', 'mapzen.whosonfirst.geojson'],
-    version='0.04',
+    version='0.05',
     description='Python tools for doing GeoJSON related things with Who\'s On First data',
     author='Mapzen',
     url='https://github.com/mapzen/py-mapzen-whosonfirst-geojson',
@@ -20,5 +20,5 @@ setup(
     scripts=[
         'scripts/wof-encode',
         ],
-    download_url='https://github.com/mapzen/py-mapzen-whosonfirst-geojson/releases/tag/v0.04',
+    download_url='https://github.com/mapzen/py-mapzen-whosonfirst-geojson/releases/tag/v0.05',
     license='BSD')

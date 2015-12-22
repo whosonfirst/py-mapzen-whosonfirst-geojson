@@ -90,7 +90,7 @@ class encoder:
             if scinot_pat.match(token):
                 
                 f = fmt % float(token[1:])
-                # f = f.strip('0')
+                f = f.rstrip('0')
                 f = token[0] + f
 
                 fh.write(f)
@@ -99,7 +99,7 @@ class encoder:
                 # in python 2.7, we see a character followed by a float literal
 
                 f = fmt % float(token[1:])
-                # f = f.strip('0')
+                f = f.rstrip('0')
 
                 f = token[0] + f
 
