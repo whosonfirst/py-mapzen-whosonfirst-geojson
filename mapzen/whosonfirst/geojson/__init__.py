@@ -70,6 +70,25 @@ class encoder:
         # Remember - see the comments about precision above
         # in __init__ 
 
+        # I hate you, Python...
+        # I really hate you0000000000000...
+
+        def enzeroify (n):
+
+            n = n.rstrip('0')
+
+            # Because apparently you can't have float values without
+            # something after the decimal point... I don't know, maybe
+            # there's some logic to that decision but it escapes me
+            # right now... (20151221/thisisaaronland)
+            
+            if n.endswith('.'):
+                n = n + '0'
+
+            return n
+
+        # Sigh...
+
         fmt = self.fmt
 
         if precision != None:
@@ -81,16 +100,15 @@ class encoder:
 
         if precision != None:
             fmt = "%." + str(precision) + "f"
-        
-        for token in encoded:
 
-            # I hate you, Python...
-            # I really hate you0000000000000...
+        for token in encoded:
 
             if scinot_pat.match(token):
                 
                 f = fmt % float(token[1:])
-                f = f.rstrip('0')
+
+                f = enzeroify(f)
+
                 f = token[0] + f
 
                 fh.write(f)
@@ -99,7 +117,8 @@ class encoder:
                 # in python 2.7, we see a character followed by a float literal
 
                 f = fmt % float(token[1:])
-                f = f.rstrip('0')
+
+                f = enzeroify(f)
 
                 f = token[0] + f
 
@@ -110,7 +129,7 @@ class encoder:
             elif float_pat.match(token):
 
                 f = fmt % float(token)
-                # f = f.strip('0')
+                f = enzeroify(f)
 
                 fh.write(f)
             
