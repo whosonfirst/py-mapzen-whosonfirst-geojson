@@ -19,7 +19,7 @@ version = open("VERSION").read()
 
 setup(
     name='mapzen.whosonfirst.geojson',
-    namespace_packages=['mapzen', 'mapzen.whosonfirst', 'mapzen.whosonfirst.geojson'],
+    namespace_packages=['mapzen', 'mapzen.whosonfirst'],
     version=version,
     description='Python tools for doing GeoJSON related things with Who\'s On First data',
     author='Mapzen',
