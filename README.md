@@ -2,6 +2,12 @@
 
 Python tools for doing GeoJSON related things with Who's On First data
 
+## Install
+
+```
+sudo pip install -r requirements.txt
+```
+
 ## Usage
 
 ### mapzen.whosonfirst.geojson.encoder

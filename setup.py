@@ -24,10 +24,6 @@ setup(
     description='Python tools for doing GeoJSON related things with Who\'s On First data',
     author='Mapzen',
     url='https://github.com/whosonfirst/py-mapzen-whosonfirst-geojson',
-    install_requires=[
-        ],
-    dependency_links=[
-        ],
     packages=packages,
     scripts=[
         'scripts/wof-encode',
