@@ -4,3 +4,8 @@ build
 dist
 *.egg-info
 *.csv
+pip-selfcheck.json
+.Python
+bin
+lib
+include
