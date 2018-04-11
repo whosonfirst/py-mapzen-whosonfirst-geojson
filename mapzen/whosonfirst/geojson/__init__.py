@@ -34,7 +34,7 @@ class encoder:
         # Mostly this is to account for Python deciding to use scientific notation
         # on a whim which is super annoying. To that end we are enforcing some standards
         # which raises the larger question of why we let anyone specify a precision
-        # at all. But that is tomorrow's problem... 
+        # at all. But that is tomorrow's problem...
 
         precision = kwargs.get('precision', None)
 
@@ -45,7 +45,7 @@ class encoder:
             if precision <= 0:
                 precision = None
 
-            if precesion > 14:
+            if precision > 14:
                 raise Exception, "WHY U SO PRECISE?"
 
         self.indent = indent
@@ -60,12 +60,12 @@ class encoder:
 
         # From TileStache's vectiles GeoJSON encoder thingy
         # (20130317/straup)
-        
+
         encoder = json.JSONEncoder(separators=(',', ':'), indent=indent, sort_keys=True)
         encoded = encoder.iterencode(data)
 
         # Remember - see the comments about precision above
-        # in __init__ 
+        # in __init__
 
         # I hate you, Python...
         # I really hate you0000000000000...
@@ -78,7 +78,7 @@ class encoder:
             # something after the decimal point... I don't know, maybe
             # there's some logic to that decision but it escapes me
             # right now... (20151221/thisisaaronland)
-            
+
             if n.endswith('.'):
                 n = n + '0'
 
