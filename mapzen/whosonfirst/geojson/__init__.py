@@ -8,8 +8,9 @@ import re
 
 float_pat = re.compile(r'^-?\d+\.\d+(e-?\d+)?$')
 charfloat_pat = re.compile(r'^[\[,\,]-?\d+\.\d+(e-?\d+)?$')
-scinot_pat = re.compile(r'^[\[,\,](-?\d+e-\d+?)$')
-        
+scinot_geom_pat = re.compile(r'^[\[,\,](-?\d+e-\d+?)$')
+scinot_prop_pat = re.compile(r'^\b-?[1-9](?:\.\d+)?[Ee][-+]?\d+\b$')
+
 class encoder:
 
     def __init__(self, **kwargs):
@@ -100,8 +101,8 @@ class encoder:
 
         for token in encoded:
 
-            if scinot_pat.match(token):
-                
+            if scinot_geom_pat.match(token):
+
                 f = fmt % float(token[1:])
 
                 f = enzeroify(f)
@@ -123,13 +124,13 @@ class encoder:
 
             # in python 2.6, we see a simple float literal
 
-            elif float_pat.match(token):
+            elif float_pat.match(token) or scinot_prop_pat.match(token):
 
                 f = fmt % float(token)
                 f = enzeroify(f)
 
                 fh.write(f)
-            
+
             else:
                 fh.write(token)
 
@@ -160,7 +161,7 @@ class encoder:
             else:
 
                 # See comments in __init__ and note the way we are explicitly
-                # reseting precision unless the user says otherwise... which 
+                # reseting precision unless the user says otherwise... which
                 # is not necessarily what we want to do in the first place
                 # (20151202/thisisaaronland)
 
