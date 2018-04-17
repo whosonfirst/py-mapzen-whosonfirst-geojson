@@ -1,0 +1,200 @@
+#!/usr/bin/env python
+# -*-python-*-
+
+import sys
+import os.path
+import logging
+import geojson
+import re
+import mapzen.whosonfirst.geojson
+
+def fixup(path, options, stats):
+    pattern = re.compile('^ne:')
+    try:
+        fh = open(path, 'r')
+        f = geojson.load(fh)
+        fh.close()
+
+        fixed = False
+
+        if 'mz:min_zoom' in f['properties']:
+            if type(f['properties']['mz:min_zoom']) != 'float':
+                f['properties']['mz:min_zoom'] = float(f['properties']['mz:min_zoom'])
+                fixed = True
+
+        if 'mz:max_zoom' in f['properties']:
+            if type(f['properties']['mz:max_zoom']) != 'float':
+                f['properties']['mz:max_zoom'] = float(f['properties']['mz:max_zoom'])
+                fixed = True
+
+        if 'wof:category' in f['properties']:
+            if isinstance(f['properties']['wof:category'], basestring):
+                l = []
+                l.append(f['properties']['wof:category'])
+                f['properties']['wof:category'] = l
+
+        if 'wof:children' in f['properties']:
+            for index, value in enumerate(f['properties']['wof:children']):
+                if type(value) != 'int':
+                    f['properties']['wof:children'][index] = int(value)
+                    fixed = True
+
+        if 'wof:coterminous' in f['properties']:
+            if isinstance(f['properties']['wof:coterminous'], int):
+                l = []
+                l.append(f['properties']['wof:coterminous'])
+                f['properties']['wof:coterminous'] = l
+
+            else:
+                for index, value in enumerate(f['properties']['wof:coterminous']):
+                    if type(value) != 'int':
+                        f['properties']['wof:coterminous'][index] = int(value)
+                        fixed = True
+
+        if 'wof:megacity' in f['properties']:
+            if isinstance(f['properties']['wof:megacity'], basestring):
+                if f['properties']['wof:megacity'] == "":
+                    f['properties']['wof:megacity'] = 0
+                else:
+                    f['properties']['wof:megacity'] = int(f['properties']['wof:megacity'])
+
+        if 'wof:parent_id' in f['properties']:
+            if type(f['properties']['wof:parent_id']) != 'int':
+                f['properties']['wof:parent_id'] = int(f['properties']['wof:parent_id'])
+                fixed = True
+
+        if 'wof:placetype_alt' in f['properties']:
+            if isinstance(f['properties']['wof:placetype_alt'], basestring):
+                l = []
+                l.append(f['properties']['wof:placetype_alt'])
+                f['properties']['wof:placetype_alt'] = l
+
+        if 'wof:population' in f['properties']:
+            if type(f['properties']['wof:population']) != 'int':
+                f['properties']['wof:population'] = int(f['properties']['wof:population'])
+                fixed = True
+
+        if 'wof:population_rank' in f['properties']:
+            if type(f['properties']['wof:population_rank']) != 'int':
+                f['properties']['wof:population_rank'] = int(f['properties']['wof:population_rank'])
+                fixed = True
+
+        if 'wof:scale' in f['properties']:
+            if isinstance(f['properties']['wof:scale'], basestring):
+                if f['properties']['wof:scale'] == "":
+                    f['properties']['wof:scale'] = 0
+                else:
+                    f['properties']['wof:scale'] = int(f['properties']['wof:scale'])
+
+        if 'wof:supersedes' in f['properties']:
+            for index, value in enumerate(f['properties']['wof:supersedes']):
+                if type(value) != 'int':
+                    f['properties']['wof:supersedes'][index] = int(value)
+                    fixed = True
+
+        if 'wof:superseded_by' in f['properties']:
+            for index, value in enumerate(f['properties']['wof:superseded_by']):
+                if type(value) != 'int':
+                    f['properties']['wof:superseded_by'][index] = int(value)
+                    fixed = True
+
+        if 'wof:hierarchy' in f['properties']:
+            for index, element in enumerate(f['properties']['wof:hierarchy']):
+                for key in f['properties']['wof:hierarchy'][index]:
+                    if type(f['properties']['wof:hierarchy'][index][key]) != 'int':
+                        f['properties']['wof:hierarchy'][index][key] = int(f['properties']['wof:hierarchy'][index][key])
+                        fixed = True
+
+        if 'wof:belongsto' in f['properties']:
+            for index, value in enumerate(f['properties']['wof:belongsto']):
+                if type(value) != 'int':
+                    f['properties']['wof:belongsto'][index] = int(value)
+                    fixed = True
+
+        if 'wof:concordances' in f['properties']:
+            if 'gp:id' in f['properties']['wof:concordances']:
+                if type(f['properties']['wof:concordances']['gp:id']) != 'int':
+                    f['properties']['wof:concordances']['gp:id'] = int(f['properties']['wof:concordances']['gp:id'])
+                    fixed = True
+
+            if 'gn:id' in f['properties']['wof:concordances']:
+                if type(f['properties']['wof:concordances']['gn:id']) != 'int':
+                    f['properties']['wof:concordances']['gn:id'] = int(f['properties']['wof:concordances']['gn:id'])
+                    fixed = True
+
+            if 'qs:id' in f['properties']['wof:concordances']:
+                if type(f['properties']['wof:concordances']['qs:id']) != 'int':
+                    f['properties']['wof:concordances']['qs:id'] = int(f['properties']['wof:concordances']['qs:id'])
+                    fixed = True
+
+        else:
+            f['properties']['wof:concordances'] = {}
+            fixed = True
+
+        if fixed:
+            stats['fixed']+= 1
+
+        fh = open(path, 'w')
+        e = mapzen.whosonfirst.geojson.encoder(precision=options.precision)
+        e.encode_feature(f, fh)
+
+    except:
+        print('\nFatal exception caught in {}'.format(path))
+        raise
+
+if __name__ == '__main__':
+    import optparse
+    from progress.spinner import Spinner
+
+    opt_parser = optparse.OptionParser("""wof-fix-props --options /path/to/wof-data""")
+    opt_parser.add_option('-p', '--precision', dest='precision', action='store', default=None, help='Trim coordinates to this many decimal places (default is None)')
+    opt_parser.add_option('--verbose', dest='verbose', action='store_true', default=False, help='Be chatty (default is false)')
+
+    options, args = opt_parser.parse_args()
+
+    spinner = None
+
+    if not args:
+        opt_parser.print_help()
+
+    if options.verbose:
+        logging.basicConfig(level=logging.DEBUG)
+        spinner = Spinner('Scanning WOF GeoJSON files: ')
+
+    else:
+        logging.basicConfig(level=logging.INFO)
+
+    e = mapzen.whosonfirst.geojson.encoder(precision=options.precision)
+
+    stats = {
+        'scanned': 0,
+        'selected': 0,
+        'fixed': 0
+    }
+
+    pattern = re.compile('^[0-9]{1,}\.geojson$')
+    for path in args:
+        path = os.path.abspath(path)
+
+        if os.path.isdir(path):
+            for dir_name, sub_dirs, file_list in os.walk(path):
+                for file_name in file_list:
+                    if re.search(pattern, file_name):
+                        stats['scanned']+= 1
+
+                        if file_name.lower().endswith('.geojson'):
+                            stats['selected']+= 1
+                            if options.verbose:
+                                spinner.next()
+
+                            fixup(os.path.join(dir_name, file_name), options, stats)
+
+        else:
+            stats['scanned']+= 1
+            stats['selected']+= 1
+            fixup(path, options, stats)
+
+    if options.verbose:
+        print('\n{} files scanned, {} selected, {} fixed'.format(stats['scanned'], stats['selected'], stats['fixed']))
+
+    sys.exit
