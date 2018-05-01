@@ -17,6 +17,176 @@ def fixup(path, options, stats):
 
         fixed = False
 
+        # Fixup gn: properties
+        if 'gn:pop' in f['properties']:
+            if not isinstance(f['properties']['gn:pop'], basestring):
+                f['properties']['gn:pop'] = str(f['properties']['gn:pop'])
+                fixed = True
+
+        # Fixup gp: properties
+        if 'gp:adm0' in f['properties']:
+            if isinstance(f['properties']['gp:adm0'], basestring):
+                f['properties']['gp:adm0'] = int(f['properties']['gp:adm0'])
+                fixed = True
+
+        # Fixup itu: properties
+        if 'itu:country_code' in f['properties']:
+            if isinstance(f['properties']['itu:country_code'], basestring):
+                l = []
+                l.append(f['properties']['itu:country_code'])
+                f['properties']['itu:country_code'] = l
+                fixed = True
+
+        # Fixup lacity: properties
+        if 'lacity:NC_ID' in f['properties']:
+            if not isinstance(f['properties']['lacity:NC_ID'], basestring):
+                f['properties']['lacity:NC_ID'] = str(f['properties']['lacity:NC_ID'])
+                fixed = True
+
+        if 'lacity:OBJECTID' in f['properties']:
+            if not isinstance(f['properties']['lacity:OBJECTID'], basestring):
+                f['properties']['lacity:OBJECTID'] = str(f['properties']['lacity:OBJECTID'])
+                fixed = True
+
+        # Fixup meso: properties
+        if 'meso:adm1_alt' in f['properties']:
+            if not isinstance(f['properties']['meso:adm1_alt'], basestring):
+                f['properties']['meso:adm1_alt'] = str(f['properties']['meso:adm1_alt'])
+                fixed = True
+
+        if 'meso:delete_fla' in f['properties']:
+            if not isinstance(f['properties']['meso:delete_fla'], basestring):
+                f['properties']['meso:delete_fla'] = str(f['properties']['meso:delete_fla'])
+                fixed = True
+
+        if 'meso:id' in f['properties']:
+            if not isinstance(f['properties']['meso:id'], basestring):
+                f['properties']['meso:id'] = str(f['properties']['meso:id'])
+                fixed = True
+
+        if 'meso:local_id' in f['properties']:
+            if not isinstance(f['properties']['meso:local_id'], basestring):
+                f['properties']['meso:local_id'] = str(f['properties']['meso:local_id'])
+                fixed = True
+
+        if 'meso:pop' in f['properties']:
+            if not isinstance(f['properties']['meso:pop'], basestring):
+                f['properties']['meso:pop'] = str(f['properties']['meso:pop'])
+                fixed = True
+
+        # Fixup misc: properties
+        if 'misc:gn_id' in f['properties']:
+            if isinstance(f['properties']['misc:gn_id'], basestring):
+                f['properties']['misc:gn_id'] = int(f['properties']['misc:gn_id'])
+                fixed = True
+
+        if 'misc:gn_local' in f['properties']:
+            if isinstance(f['properties']['misc:gn_local'], basestring):
+                f['properties']['misc:gn_local'] = int(f['properties']['misc:gn_local'])
+                fixed = True
+
+        if 'misc:local_max' in f['properties']:
+            if isinstance(f['properties']['misc:local_max'], basestring):
+                f['properties']['misc:local_max'] = int(f['properties']['misc:local_max'])
+                fixed = True
+
+        if 'misc:local_sum' in f['properties']:
+            if isinstance(f['properties']['misc:local_sum'], basestring):
+                f['properties']['misc:local_sum'] = int(f['properties']['misc:local_sum'])
+                fixed = True
+
+        if 'misc:localhoods' in f['properties']:
+            if isinstance(f['properties']['misc:localhoods'], basestring):
+                f['properties']['misc:localhoods'] = int(f['properties']['misc:localhoods'])
+                fixed = True
+
+        if 'misc:photo_max' in f['properties']:
+            if isinstance(f['properties']['misc:photo_max'], basestring):
+                f['properties']['misc:photo_max'] = int(f['properties']['misc:photo_max'])
+                fixed = True
+
+        if 'misc:photo_sum' in f['properties']:
+            if isinstance(f['properties']['misc:photo_sum'], basestring):
+                f['properties']['misc:photo_sum'] = int(f['properties']['misc:photo_sum'])
+                fixed = True
+
+        if 'misc:quad_count' in f['properties']:
+            if isinstance(f['properties']['misc:quad_count'], basestring):
+                f['properties']['misc:quad_count'] = int(f['properties']['misc:quad_count'])
+                fixed = True
+
+        if 'misc:woe_adm0' in f['properties']:
+            if isinstance(f['properties']['misc:woe_adm0'], basestring):
+                f['properties']['misc:woe_adm0'] = int(f['properties']['misc:woe_adm0'])
+                fixed = True
+
+        if 'misc:woe_adm1' in f['properties']:
+            if isinstance(f['properties']['misc:woe_adm1'], basestring):
+                f['properties']['misc:woe_adm1'] = int(f['properties']['misc:woe_adm1'])
+                fixed = True
+
+        if 'misc:woe_adm2' in f['properties']:
+            if isinstance(f['properties']['misc:woe_adm2'], basestring):
+                f['properties']['misc:woe_adm2'] = int(f['properties']['misc:woe_adm2'])
+                fixed = True
+
+        if 'misc:woe_lau' in f['properties']:
+            if isinstance(f['properties']['misc:woe_lau'], basestring):
+                f['properties']['misc:woe_lau'] = int(f['properties']['misc:woe_lau'])
+                fixed = True
+
+        if 'misc:woe_local' in f['properties']:
+            if isinstance(f['properties']['misc:woe_local'], basestring):
+                f['properties']['misc:woe_local'] = int(f['properties']['misc:woe_local'])
+                fixed = True
+
+        # Fixup mps: properties
+        if 'mps:latitude' in f['properties']:
+            if isinstance(f['properties']['mps:latitude'], basestring):
+                f['properties']['mps:latitude'] = float(f['properties']['mps:latitude'])
+                fixed = True
+
+        if 'mps:longitude' in f['properties']:
+            if isinstance(f['properties']['mps:longitude'], basestring):
+                f['properties']['mps:longitude'] = float(f['properties']['mps:longitude'])
+                fixed = True
+
+        # Fixup mz: properties
+        if 'mz:hierarchy_label' in f['properties']:
+            if isinstance(f['properties']['mz:hierarchy_label'], basestring):
+                f['properties']['mz:hierarchy_label'] = int(f['properties']['mz:hierarchy_label'])
+                fixed = True
+
+        if 'mz:is_current' in f['properties']:
+            if isinstance(f['properties']['mz:is_current'], basestring):
+                f['properties']['mz:is_current'] = int(f['properties']['mz:is_current'])
+                fixed = True
+
+        if 'mz:is_funky' in f['properties']:
+            if isinstance(f['properties']['mz:is_funky'], basestring):
+                f['properties']['mz:is_funky'] = int(f['properties']['mz:is_funky'])
+                fixed = True
+
+        if 'mz:is_hard_boundary' in f['properties']:
+            if isinstance(f['properties']['mz:is_hard_boundary'], basestring):
+                f['properties']['mz:is_hard_boundary'] = int(f['properties']['mz:is_hard_boundary'])
+                fixed = True
+
+        if 'mz:is_landuse_aoi' in f['properties']:
+            if isinstance(f['properties']['mz:is_landuse_aoi'], basestring):
+                f['properties']['mz:is_landuse_aoi'] = int(f['properties']['mz:is_landuse_aoi'])
+                fixed = True
+
+        if 'mz:is_official' in f['properties']:
+            if isinstance(f['properties']['mz:is_official'], basestring):
+                f['properties']['mz:is_official'] = int(f['properties']['mz:is_official'])
+                fixed = True
+
+        if 'mz:tier_locality' in f['properties']:
+            if isinstance(f['properties']['mz:tier_locality'], basestring):
+                f['properties']['mz:tier_locality'] = int(f['properties']['mz:tier_locality'])
+                fixed = True
+
         if 'mz:min_zoom' in f['properties']:
             if type(f['properties']['mz:min_zoom']) != 'float':
                 f['properties']['mz:min_zoom'] = float(f['properties']['mz:min_zoom'])
@@ -27,11 +197,190 @@ def fixup(path, options, stats):
                 f['properties']['mz:max_zoom'] = float(f['properties']['mz:max_zoom'])
                 fixed = True
 
+        # Fixup ne: properties
+        if 'ne:fips_10_' in f['properties']:
+            if not isinstance(f['properties']['ne:fips_10_'], basestring):
+                f['properties']['ne:fips_10_'] = str(f['properties']['ne:fips_10_'])
+                fixed = True
+
+        if 'ne:gdp_md_est' in f['properties']:
+            if not isinstance(f['properties']['ne:gdp_md_est'], basestring):
+                f['properties']['ne:gdp_md_est'] = str(f['properties']['ne:gdp_md_est'])
+                fixed = True
+
+        if 'ne:gdp_year' in f['properties']:
+            if not isinstance(f['properties']['ne:gdp_year'], basestring):
+                f['properties']['ne:gdp_year'] = str(f['properties']['ne:gdp_year'])
+                fixed = True
+
+        if 'ne:geou_dif' in f['properties']:
+            if not isinstance(f['properties']['ne:geou_dif'], int):
+                f['properties']['ne:geou_dif'] = int(f['properties']['ne:geou_dif'])
+                fixed = True
+
+        if 'ne:iso_n3' in f['properties']:
+            if not isinstance(f['properties']['ne:iso_n3'], basestring):
+                f['properties']['ne:iso_n3'] = str(f['properties']['ne:iso_n3'])
+                fixed = True
+
+        if 'ne:level' in f['properties']:
+            if not isinstance(f['properties']['ne:level'], int):
+                f['properties']['ne:level'] = int(f['properties']['ne:level'])
+                fixed = True
+
+        if 'ne:mapcolor13' in f['properties']:
+            if not isinstance(f['properties']['ne:mapcolor13'], int):
+                f['properties']['ne:mapcolor13'] = int(f['properties']['ne:mapcolor13'])
+                fixed = True
+
+        if 'ne:mapcolor9' in f['properties']:
+            if not isinstance(f['properties']['ne:mapcolor9'], int):
+                f['properties']['ne:mapcolor9'] = int(f['properties']['ne:mapcolor9'])
+                fixed = True
+
+        if 'ne:mapcolor8' in f['properties']:
+            if not isinstance(f['properties']['ne:mapcolor8'], int):
+                f['properties']['ne:mapcolor8'] = int(f['properties']['ne:mapcolor8'])
+                fixed = True
+
+        if 'ne:mapcolor7' in f['properties']:
+            if not isinstance(f['properties']['ne:mapcolor7'], int):
+                f['properties']['ne:mapcolor7'] = int(f['properties']['ne:mapcolor7'])
+                fixed = True
+
+        if 'ne:name_len' in f['properties']:
+            if not isinstance(f['properties']['ne:name_len'], int):
+                f['properties']['ne:name_len'] = int(f['properties']['ne:name_len'])
+                fixed = True
+
+        if 'ne:pop_est' in f['properties']:
+            if not isinstance(f['properties']['ne:pop_est'], int):
+                f['properties']['ne:pop_est'] = int(f['properties']['ne:pop_est'])
+                fixed = True
+
+        if 'ne:su_dif' in f['properties']:
+            if not isinstance(f['properties']['ne:su_dif'], int):
+                f['properties']['ne:su_dif'] = int(f['properties']['ne:su_dif'])
+                fixed = True
+
+        if 'ne:un_a3' in f['properties']:
+            if not isinstance(f['properties']['ne:un_a3'], basestring):
+                f['properties']['ne:un_a3'] = str(f['properties']['ne:un_a3'])
+                fixed = True
+
+        if 'ne:wikipedia' in f['properties']:
+            if not isinstance(f['properties']['ne:wikipedia'], basestring):
+                f['properties']['ne:wikipedia'] = str(f['properties']['ne:wikipedia'])
+                fixed = True
+
+        if 'ne:woe_id' in f['properties']:
+            if not isinstance(f['properties']['ne:woe_id'], basestring):
+                f['properties']['ne:woe_id'] = str(f['properties']['ne:woe_id'])
+                fixed = True
+
+        if 'ne:woe_id_eh' in f['properties']:
+            if not isinstance(f['properties']['ne:woe_id_eh'], basestring):
+                f['properties']['ne:woe_id_eh'] = str(f['properties']['ne:woe_id_eh'])
+                fixed = True
+
+        # Fixup qs: properties
+        if 'qs:a1_lc' in f['properties']:
+            if not isinstance(f['properties']['qs:a1_lc'], basestring):
+                f['properties']['qs:a1_lc'] = str(f['properties']['qs:a1_lc'])
+                fixed = True
+
+        if 'qs:a1r' in f['properties']:
+            if not isinstance(f['properties']['qs:a1r'], basestring):
+                f['properties']['qs:a1r'] = str(f['properties']['qs:a1r'])
+                fixed = True
+
+        if 'qs:loc_lc' in f['properties']:
+            if not isinstance(f['properties']['qs:loc_lc'], basestring):
+                f['properties']['qs:loc_lc'] = str(f['properties']['qs:loc_lc'])
+                fixed = True
+
+        if 'qs:photos' in f['properties']:
+            if not isinstance(f['properties']['qs:photos'], basestring):
+                f['properties']['qs:photos'] = str(f['properties']['qs:photos'])
+                fixed = True
+
+        if 'qs:photos_sr' in f['properties']:
+            if not isinstance(f['properties']['qs:photos_sr'], basestring):
+                f['properties']['qs:photos_sr'] = str(f['properties']['qs:photos_sr'])
+                fixed = True
+
+        if 'qs:photos_1k' in f['properties']:
+            if not isinstance(f['properties']['qs:photos_1k'], basestring):
+                f['properties']['qs:photos_1k'] = str(f['properties']['qs:photos_1k'])
+                fixed = True
+
+        if 'qs:photos_9k' in f['properties']:
+            if not isinstance(f['properties']['qs:photos_9k'], basestring):
+                f['properties']['qs:photos_9k'] = str(f['properties']['qs:photos_9k'])
+                fixed = True
+
+        if 'qs:photos_9r' in f['properties']:
+            if not isinstance(f['properties']['qs:photos_9r'], basestring):
+                f['properties']['qs:photos_9r'] = str(f['properties']['qs:photos_9r'])
+                fixed = True
+
+        if 'qs:photos_all' in f['properties']:
+            if not isinstance(f['properties']['qs:photos_all'], basestring):
+                f['properties']['qs:photos_all'] = str(f['properties']['qs:photos_all'])
+                fixed = True
+
+        if 'qs:gn_id' in f['properties']:
+            if not isinstance(f['properties']['qs:gn_id'], basestring):
+                f['properties']['qs:gn_id'] = str(f['properties']['qs:gn_id'])
+                fixed = True
+
+        if 'qs:gn_pop' in f['properties']:
+            if not isinstance(f['properties']['qs:gn_pop'], basestring):
+                f['properties']['qs:gn_pop'] = str(f['properties']['qs:gn_pop'])
+                fixed = True
+
+        # Fixup reversegeo: properties
+        if 'reversegeo:latitude' in f['properties']:
+            if isinstance(f['properties']['reversegeo:latitude'], basestring):
+                f['properties']['reversegeo:latitude'] = float(f['properties']['reversegeo:latitude'])
+                fixed = True
+
+        if 'reversegeo:longitude' in f['properties']:
+            if isinstance(f['properties']['reversegeo:longitude'], basestring):
+                f['properties']['reversegeo:longitude'] = float(f['properties']['reversegeo:longitude'])
+                fixed = True
+
+        # Fixup src: properties
+        if 'src:geom_alt' in f['properties']:
+            if isinstance(f['properties']['src:geom_alt'], basestring):
+                l = []
+                l.append(f['properties']['src:geom_alt'])
+                f['properties']['src:geom_alt'] = l
+                fixed = True
+
+        # Fixup wk: properties
+        if 'wk:elevation' in f['properties']:
+            if isinstance(f['properties']['wk:elevation'], basestring):
+                f['properties']['wk:elevation'] = float(f['properties']['wk:elevation'])
+                fixed = True
+
+        if 'wk:wordcount' in f['properties']:
+            if isinstance(f['properties']['wk:wordcount'], basestring):
+                f['properties']['wk:wordcount'] = int(f['properties']['wk:wordcount'])
+                fixed = True
+
+        if 'wk:population' in f['properties']:
+            if isinstance(f['properties']['wk:population'], basestring):
+                f['properties']['wk:population'] = int(float(f['properties']['wk:population']))
+                fixed = True
+
+        # Fixup wof: properties
         if 'wof:category' in f['properties']:
             if isinstance(f['properties']['wof:category'], basestring):
                 l = []
                 l.append(f['properties']['wof:category'])
                 f['properties']['wof:category'] = l
+                fixed = True
 
         if 'wof:children' in f['properties']:
             for index, value in enumerate(f['properties']['wof:children']):
@@ -66,7 +415,8 @@ def fixup(path, options, stats):
         if 'wof:placetype_alt' in f['properties']:
             if isinstance(f['properties']['wof:placetype_alt'], basestring):
                 l = []
-                l.append(f['properties']['wof:placetype_alt'])
+                if f['properties']['wof:placetype_alt'] != "":
+                    l.append(f['properties']['wof:placetype_alt'])
                 f['properties']['wof:placetype_alt'] = l
 
         if 'wof:population' in f['properties']:
@@ -130,6 +480,17 @@ def fixup(path, options, stats):
         else:
             f['properties']['wof:concordances'] = {}
             fixed = True
+
+        # Fixup zs: properties
+        if 'zs:blockids' in f['properties']:
+            if isinstance(f['properties']['zs:blockids'], basestring):
+                c = f['properties']['zs:blockids'].split(',')
+                l = []
+                for b in c:
+                    b = int(b)
+                    l.append(b)
+                f['properties']['zs:blockids'] = l
+                fixed = True
 
         if fixed:
             stats['fixed']+= 1
