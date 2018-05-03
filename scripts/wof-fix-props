@@ -19,8 +19,8 @@ def fixup(path, options, stats):
 
         # Fixup gn: properties
         if 'gn:pop' in f['properties']:
-            if not isinstance(f['properties']['gn:pop'], basestring):
-                f['properties']['gn:pop'] = str(f['properties']['gn:pop'])
+            if not isinstance(f['properties']['gn:pop'], int):
+                f['properties']['gn:pop'] = int(f['properties']['gn:pop'])
                 fixed = True
 
         # Fixup gp: properties
@@ -70,8 +70,8 @@ def fixup(path, options, stats):
                 fixed = True
 
         if 'meso:pop' in f['properties']:
-            if not isinstance(f['properties']['meso:pop'], basestring):
-                f['properties']['meso:pop'] = str(f['properties']['meso:pop'])
+            if not isinstance(f['properties']['meso:pop'], int):
+                f['properties']['meso:pop'] = int(f['properties']['meso:pop'])
                 fixed = True
 
         # Fixup misc: properties
@@ -204,13 +204,13 @@ def fixup(path, options, stats):
                 fixed = True
 
         if 'ne:gdp_md_est' in f['properties']:
-            if not isinstance(f['properties']['ne:gdp_md_est'], basestring):
-                f['properties']['ne:gdp_md_est'] = str(f['properties']['ne:gdp_md_est'])
+            if not isinstance(f['properties']['ne:gdp_md_est'], int):
+                f['properties']['ne:gdp_md_est'] = int(float(f['properties']['ne:gdp_md_est']))
                 fixed = True
 
         if 'ne:gdp_year' in f['properties']:
-            if not isinstance(f['properties']['ne:gdp_year'], basestring):
-                f['properties']['ne:gdp_year'] = str(f['properties']['ne:gdp_year'])
+            if not isinstance(f['properties']['ne:gdp_year'], int):
+                f['properties']['ne:gdp_year'] = int(f['properties']['ne:gdp_year'])
                 fixed = True
 
         if 'ne:geou_dif' in f['properties']:
@@ -219,8 +219,8 @@ def fixup(path, options, stats):
                 fixed = True
 
         if 'ne:iso_n3' in f['properties']:
-            if not isinstance(f['properties']['ne:iso_n3'], basestring):
-                f['properties']['ne:iso_n3'] = str(f['properties']['ne:iso_n3'])
+            if not isinstance(f['properties']['ne:iso_n3'], int):
+                f['properties']['ne:iso_n3'] = int(float(f['properties']['ne:iso_n3']))
                 fixed = True
 
         if 'ne:level' in f['properties']:
@@ -274,13 +274,153 @@ def fixup(path, options, stats):
                 fixed = True
 
         if 'ne:woe_id' in f['properties']:
-            if not isinstance(f['properties']['ne:woe_id'], basestring):
-                f['properties']['ne:woe_id'] = str(f['properties']['ne:woe_id'])
+            if not isinstance(f['properties']['ne:woe_id'], int):
+                f['properties']['ne:woe_id'] = int(f['properties']['ne:woe_id'])
                 fixed = True
 
         if 'ne:woe_id_eh' in f['properties']:
-            if not isinstance(f['properties']['ne:woe_id_eh'], basestring):
-                f['properties']['ne:woe_id_eh'] = str(f['properties']['ne:woe_id_eh'])
+            if not isinstance(f['properties']['ne:woe_id_eh'], int):
+                f['properties']['ne:woe_id_eh'] = int(f['properties']['ne:woe_id_eh'])
+                fixed = True
+
+        if 'ne:ADMIN1_COD' in f['properties']:
+            if not isinstance(f['properties']['ne:ADMIN1_COD'], int):
+                f['properties']['ne:ADMIN1_COD'] = int(f['properties']['ne:ADMIN1_COD'])
+                fixed = True
+
+        if 'ne:CAPALT' in f['properties']:
+            if not isinstance(f['properties']['ne:CAPALT'], int):
+                f['properties']['ne:CAPALT'] = int(f['properties']['ne:CAPALT'])
+                fixed = True
+
+        if 'ne:CHANGED' in f['properties']:
+            if not isinstance(f['properties']['ne:CHANGED'], int):
+                f['properties']['ne:CHANGED'] = int(f['properties']['ne:CHANGED'])
+                fixed = True
+
+        if 'ne:GEONAMEID' in f['properties']:
+            if not isinstance(f['properties']['ne:GEONAMEID'], int):
+                f['properties']['ne:GEONAMEID'] = int(f['properties']['ne:GEONAMEID'])
+                fixed = True
+
+        if 'ne:GN_POP' in f['properties']:
+            if not isinstance(f['properties']['ne:GN_POP'], int):
+                f['properties']['ne:GN_POP'] = int(f['properties']['ne:GN_POP'])
+                fixed = True
+
+        if 'ne:MAX_POP10' in f['properties']:
+            if not isinstance(f['properties']['ne:MAX_POP10'], int):
+                f['properties']['ne:MAX_POP10'] = int(f['properties']['ne:MAX_POP10'])
+                fixed = True
+
+        if 'ne:MAX_POP20' in f['properties']:
+            if not isinstance(f['properties']['ne:MAX_POP20'], int):
+                f['properties']['ne:MAX_POP20'] = int(f['properties']['ne:MAX_POP20'])
+                fixed = True
+
+        if 'ne:MAX_POP300' in f['properties']:
+            if not isinstance(f['properties']['ne:MAX_POP300'], int):
+                f['properties']['ne:MAX_POP300'] = int(f['properties']['ne:MAX_POP300'])
+                fixed = True
+
+        if 'ne:MAX_POP310' in f['properties']:
+            if not isinstance(f['properties']['ne:MAX_POP310'], int):
+                f['properties']['ne:MAX_POP310'] = int(f['properties']['ne:MAX_POP310'])
+                fixed = True
+
+        if 'ne:MAX_POP50' in f['properties']:
+            if not isinstance(f['properties']['ne:MAX_POP50'], int):
+                f['properties']['ne:MAX_POP50'] = int(f['properties']['ne:MAX_POP50'])
+                fixed = True
+
+        if 'ne:POP1950' in f['properties']:
+            if not isinstance(f['properties']['ne:POP1950'], int):
+                f['properties']['ne:POP1950'] = int(f['properties']['ne:POP1950'])
+                fixed = True
+
+        if 'ne:POP1955' in f['properties']:
+            if not isinstance(f['properties']['ne:POP1955'], int):
+                f['properties']['ne:POP1955'] = int(f['properties']['ne:POP1955'])
+                fixed = True
+
+        if 'ne:POP1960' in f['properties']:
+            if not isinstance(f['properties']['ne:POP1960'], int):
+                f['properties']['ne:POP1960'] = int(f['properties']['ne:POP1960'])
+                fixed = True
+
+        if 'ne:POP1965' in f['properties']:
+            if not isinstance(f['properties']['ne:POP1965'], int):
+                f['properties']['ne:POP1965'] = int(f['properties']['ne:POP1965'])
+                fixed = True
+
+        if 'ne:POP1970' in f['properties']:
+            if not isinstance(f['properties']['ne:POP1970'], int):
+                f['properties']['ne:POP1970'] = int(f['properties']['ne:POP1970'])
+                fixed = True
+
+        if 'ne:POP1975' in f['properties']:
+            if not isinstance(f['properties']['ne:POP1975'], int):
+                f['properties']['ne:POP1975'] = int(f['properties']['ne:POP1975'])
+                fixed = True
+
+        if 'ne:POP1980' in f['properties']:
+            if not isinstance(f['properties']['ne:POP1980'], int):
+                f['properties']['ne:POP1980'] = int(f['properties']['ne:POP1980'])
+                fixed = True
+
+        if 'ne:POP1985' in f['properties']:
+            if not isinstance(f['properties']['ne:POP1985'], int):
+                f['properties']['ne:POP1985'] = int(f['properties']['ne:POP1985'])
+                fixed = True
+
+        if 'ne:POP1990' in f['properties']:
+            if not isinstance(f['properties']['ne:POP1990'], int):
+                f['properties']['ne:POP1990'] = int(f['properties']['ne:POP1990'])
+                fixed = True
+
+        if 'ne:POP1995' in f['properties']:
+            if not isinstance(f['properties']['ne:POP1995'], int):
+                f['properties']['ne:POP1995'] = int(f['properties']['ne:POP1995'])
+                fixed = True
+
+        if 'ne:POP2000' in f['properties']:
+            if not isinstance(f['properties']['ne:POP2000'], int):
+                f['properties']['ne:POP2000'] = int(f['properties']['ne:POP2000'])
+                fixed = True
+
+        if 'ne:POP2005' in f['properties']:
+            if not isinstance(f['properties']['ne:POP2005'], int):
+                f['properties']['ne:POP2005'] = int(f['properties']['ne:POP2005'])
+                fixed = True
+
+        if 'ne:POP2010' in f['properties']:
+            if not isinstance(f['properties']['ne:POP2010'], int):
+                f['properties']['ne:POP2010'] = int(f['properties']['ne:POP2010'])
+                fixed = True
+
+        if 'ne:POP2015' in f['properties']:
+            if not isinstance(f['properties']['ne:POP2015'], int):
+                f['properties']['ne:POP2015'] = int(f['properties']['ne:POP2015'])
+                fixed = True
+
+        if 'ne:POP2020' in f['properties']:
+            if not isinstance(f['properties']['ne:POP2020'], int):
+                f['properties']['ne:POP2020'] = int(f['properties']['ne:POP2020'])
+                fixed = True
+
+        if 'ne:POP2025' in f['properties']:
+            if not isinstance(f['properties']['ne:POP2025'], int):
+                f['properties']['ne:POP2025'] = int(f['properties']['ne:POP2025'])
+                fixed = True
+
+        if 'ne:POP2050' in f['properties']:
+            if not isinstance(f['properties']['ne:POP2050'], int):
+                f['properties']['ne:POP2050'] = int(f['properties']['ne:POP2050'])
+                fixed = True
+
+        if 'ne:WORLDCITY' in f['properties']:
+            if not isinstance(f['properties']['ne:WORLDCITY'], int):
+                f['properties']['ne:WORLDCITY'] = int(f['properties']['ne:WORLDCITY'])
                 fixed = True
 
         # Fixup qs: properties
@@ -300,43 +440,67 @@ def fixup(path, options, stats):
                 fixed = True
 
         if 'qs:photos' in f['properties']:
-            if not isinstance(f['properties']['qs:photos'], basestring):
-                f['properties']['qs:photos'] = str(f['properties']['qs:photos'])
+            if not isinstance(f['properties']['qs:photos'], int):
+                if f['properties']['qs:photos'] == 'None':
+                    f['properties']['qs:photos'] = 0
+                else:
+                    f['properties']['qs:photos'] = int(f['properties']['qs:photos'])
                 fixed = True
 
         if 'qs:photos_sr' in f['properties']:
-            if not isinstance(f['properties']['qs:photos_sr'], basestring):
-                f['properties']['qs:photos_sr'] = str(f['properties']['qs:photos_sr'])
+            if not isinstance(f['properties']['qs:photos_sr'], int):
+                if f['properties']['qs:photos_sr'] == 'None':
+                    f['properties']['qs:photos_sr'] = 0
+                else:
+                    f['properties']['qs:photos_sr'] = int(f['properties']['qs:photos_sr'])
                 fixed = True
 
         if 'qs:photos_1k' in f['properties']:
-            if not isinstance(f['properties']['qs:photos_1k'], basestring):
-                f['properties']['qs:photos_1k'] = str(f['properties']['qs:photos_1k'])
+            if not isinstance(f['properties']['qs:photos_1k'], int):
+                if f['properties']['qs:photos_1k'] == 'None':
+                    f['properties']['qs:photos_1k'] = 0
+                else:
+                    f['properties']['qs:photos_1k'] = int(float(f['properties']['qs:photos_1k']))
                 fixed = True
 
         if 'qs:photos_9k' in f['properties']:
-            if not isinstance(f['properties']['qs:photos_9k'], basestring):
-                f['properties']['qs:photos_9k'] = str(f['properties']['qs:photos_9k'])
+            if not isinstance(f['properties']['qs:photos_9k'], int):
+                if f['properties']['qs:photos_9k'] == 'None':
+                    f['properties']['qs:photos_9k'] = 0
+                else:
+                    f['properties']['qs:photos_9k'] = int(float(f['properties']['qs:photos_9k']))
                 fixed = True
 
         if 'qs:photos_9r' in f['properties']:
-            if not isinstance(f['properties']['qs:photos_9r'], basestring):
-                f['properties']['qs:photos_9r'] = str(f['properties']['qs:photos_9r'])
+            if not isinstance(f['properties']['qs:photos_9r'], int):
+                if f['properties']['qs:photos_9r'] == 'None':
+                    f['properties']['qs:photos_9r'] = 0
+                else:
+                    f['properties']['qs:photos_9r'] = int(f['properties']['qs:photos_9r'])
                 fixed = True
 
         if 'qs:photos_all' in f['properties']:
-            if not isinstance(f['properties']['qs:photos_all'], basestring):
-                f['properties']['qs:photos_all'] = str(f['properties']['qs:photos_all'])
+            if not isinstance(f['properties']['qs:photos_all'], int):
+                if f['properties']['qs:photos_all'] == 'None':
+                    f['properties']['qs:photos_all'] = 0
+                else:
+                    f['properties']['qs:photos_all'] = int(f['properties']['qs:photos_all'])
                 fixed = True
 
         if 'qs:gn_id' in f['properties']:
-            if not isinstance(f['properties']['qs:gn_id'], basestring):
-                f['properties']['qs:gn_id'] = str(f['properties']['qs:gn_id'])
+            if not isinstance(f['properties']['qs:gn_id'], int):
+                if f['properties']['qs:gn_id'] == 'None':
+                    f['properties']['qs:gn_id'] = 0
+                else:
+                    f['properties']['qs:gn_id'] = int(f['properties']['qs:gn_id'])
                 fixed = True
 
         if 'qs:gn_pop' in f['properties']:
-            if not isinstance(f['properties']['qs:gn_pop'], basestring):
-                f['properties']['qs:gn_pop'] = str(f['properties']['qs:gn_pop'])
+            if not isinstance(f['properties']['qs:gn_pop'], int):
+                if f['properties']['qs:gn_pop'] == 'None':
+                    f['properties']['qs:gn_pop'] = 0
+                else:
+                    f['properties']['qs:gn_pop'] = int(f['properties']['qs:gn_pop'])
                 fixed = True
 
         # Fixup reversegeo: properties
