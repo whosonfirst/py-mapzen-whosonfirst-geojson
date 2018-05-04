@@ -664,7 +664,7 @@ def fixup(path, options, stats):
         e.encode_feature(f, fh)
 
     except:
-        print('\nFatal exception caught in {}'.format(path))
+        logging.exception('\nFatal exception caught in {}'.format(path))
         raise
 
 if __name__ == '__main__':
