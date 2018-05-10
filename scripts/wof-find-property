@@ -1,0 +1,72 @@
+#!/usr/bin/env python
+# -*-python-*-
+
+import sys
+import os.path
+import logging
+import geojson
+import re
+import mapzen.whosonfirst.geojson
+
+def find_property(path, options):
+    try:
+        fh = open(path, 'r')
+        f = geojson.load(fh)
+        fh.close()
+
+        if options.prefix:
+            regex = '^{}:'.format(options.prefix)
+            pattern = re.compile(regex)
+            for key, value in f['properties'].iteritems():
+                if re.search(pattern, key):
+                    p, filename = os.path.split(path)
+                    if isinstance(value, str) or isinstance(value, unicode):
+                        value = value.encode('utf-8')
+
+                    print('{} {} - {} ({})'.format(filename, key, value, type(value)))
+
+        elif options.property in f['properties']:
+            p, filename = os.path.split(path)
+            value = f['properties'][options.property]
+            if isinstance(value, str) or isinstance(value, unicode):
+                value = value.encode('utf-8')
+
+            print('{} {} - {} ({})'.format(filename, options.property, value, type(value)))
+
+    except:
+        print('\nFatal exception caught in {}'.format(path))
+        raise
+
+if __name__ == '__main__':
+    import optparse
+
+    opt_parser = optparse.OptionParser("""wof-find-property --options /path/to/wof-data""")
+    opt_parser.add_option('-p', '--property', dest='property', action='store', default=None, help='Property name to find, specified as prefix:name')
+    opt_parser.add_option('-x', '--prefix', dest='prefix', action='store', default=None, help='Property prefix to find')
+    opt_parser.add_option('--verbose', dest='verbose', action='store_true', default=False, help='Be chatty (default is false)')
+
+    options, args = opt_parser.parse_args()
+
+    if options.prefix and options.property:
+        print('Please specify either a property prefix or a property name, not both')
+        sys.exit()
+
+    if options.verbose:
+        logging.basicConfig(level=logging.DEBUG)
+    else:
+        logging.basicConfig(level=logging.INFO)
+
+    if not args:
+        opt_parser.print_help()
+
+    e = mapzen.whosonfirst.geojson.encoder()
+
+    for path in args:
+        path = os.path.abspath(path)
+        if os.path.isdir(path):
+            for dir_name, sub_dirs, file_list in os.walk(path):
+                for file_name in file_list:
+                    if file_name.lower().endswith('.geojson'):
+                        find_property(os.path.join(dir_name, file_name), options)
+
+    sys.exit
