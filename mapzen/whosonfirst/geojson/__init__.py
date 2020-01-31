@@ -47,7 +47,7 @@ class encoder:
                 precision = None
 
             if precision > 14:
-                raise Exception, "WHY U SO PRECISE?"
+                raise Exception("WHY U SO PRECISE?")
 
         self.indent = indent
         self.precision = precision
