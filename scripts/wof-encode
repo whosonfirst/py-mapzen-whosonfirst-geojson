@@ -18,7 +18,7 @@ if __name__ == '__main__':
 
     options, args = opt_parser.parse_args()
 
-    if options.verbose:	
+    if options.verbose:
         logging.basicConfig(level=logging.DEBUG)
     else:
         logging.basicConfig(level=logging.INFO)
@@ -33,5 +33,5 @@ if __name__ == '__main__':
       f = geojson.load(fh)
 
       e.encode_feature(f, sys.stdout)
-      
+
     sys.exit()
